@@ -6,7 +6,11 @@ import {createBoard,
 } from "./createBoard"
 import { MOVE_DIR } from './moveDir';
 import { getMoveDirection } from './getMoveDirection';
-import { getDownBlocks } from './getBlock';
+import { getDownBlocks,
+  getUpBlocks,
+  getRightBlocks,
+  getLeftBlocks
+} from './getBlock';
 
 
 function App() {
@@ -60,11 +64,46 @@ function App() {
         } else{
           let [b1,b2] = getDownBlocks(blocks, sBlock)
           console.log(b1, b2)
-
           if(b1!==null && b2!== null){
             console.log("valid move down")
             b1.positionY = b2.positionY = sBlock.positionY
             sBlock.positionY += 1   
+          }
+        }
+      }
+      else if(move === MOVE_DIR.MOVE_UP){
+        if(sBlock.width === 1){
+          dBlock.positionY = sBlock.positionY + sBlock.height -1
+          sBlock.positionY -= 1
+        } else {
+          let [b1,b2] = getUpBlocks(blocks,sBlock)
+          if(b1!==null && b2!== null){
+            b1.positionY = b2.positionY = sBlock.positionY + sBlock.height -1
+            sBlock.positionY -= 1   
+          }
+        }
+      }
+      else if(move === MOVE_DIR.MOVE_LEFT){
+        if(sBlock.height === 1){
+          dBlock.positionX = sBlock.positionX + sBlock.width -1
+          sBlock.positionX -= 1
+        }else{
+          let [b1,b2] = getLeftBlocks(blocks,sBlock)
+          if(b1!==null && b2!== null){
+            b1.positionX = b2.positionX = sBlock.positionX + sBlock.width -1
+            sBlock.positionX -= 1   
+          }
+        }
+      }
+      else if(move === MOVE_DIR.MOVE_RIGHT){
+        if(sBlock.height === 1){
+          dBlock.positionX = sBlock.positionX 
+          sBlock.positionX += 1
+        }else{
+          let [b1,b2] = getRightBlocks(blocks,sBlock)
+          if(b1!==null && b2!== null){
+            b1.positionX = b2.positionX = sBlock.positionX 
+            sBlock.positionX += 1   
           }
         }
       }
