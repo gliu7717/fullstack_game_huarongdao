@@ -7,7 +7,7 @@ import huangzhong from './images/huangzhong.png'
 import machao from './images/machao.png'
 import soilder from './images/solider.png'
 
-const createBoard = () =>{
+export const createBoard = () =>{
     const zhangFei = {
       id :1,
       name: "zhangfei",
@@ -173,4 +173,4 @@ const createBoard = () =>{
     return boardArrangement
   }
 
-  export default createBoard
+  
