@@ -4,37 +4,46 @@ import {createBoard,
   blank1,
   blank2
 } from "./createBoard"
+import { MOVE_DIR } from './moveDir';
+import { getMoveDirection } from './getMoveDirection';
+
 
 function App() {
   const [blocks, setBlocks] = useState([])
-  const [squareBeingDragged, setSquareBeingDragged] = useState(null)
-  const [squareBeingReplaced, setSquareBeingReplaced] = useState(null)
+  const [blockBeingDragged, setblockBeingDragged] = useState(null)
+  const [blockBeingReplaced, setblockBeingReplaced] = useState(null)
+
+  function findBlockItem(arr, id) {
+    return arr.filter((el) => el.id === id )[0];
+  }
+
   useEffect(() => {
     setBlocks(createBoard())    
   }, [])
   const dragStart = (e) => {
-    console.log(e.target)
-    setSquareBeingDragged(e.target)
+    setblockBeingDragged(e.target)
   }
   const dragDrop = (e) => {
-    console.log(e.target)
-    setSquareBeingReplaced(e.target)
+    setblockBeingReplaced(e.target)
   }
   const dragEnd = (e) => {
-    console.log(e.target)
-    const squareBeingDraggedId = parseInt(squareBeingDragged.getAttribute('block-id'))
-    const squareBeingReplacedId = parseInt(squareBeingReplaced.getAttribute('block-id'))
-    console.log(squareBeingDraggedId)
-    console.log(squareBeingReplacedId)
-    if (squareBeingReplacedId && squareBeingReplacedId ){
-      if(squareBeingDraggedId === blank1.id || squareBeingDraggedId === blank2.id ){
-        console.log("Draged a blank block")
+    const blockBeingDraggedId = parseInt(blockBeingDragged.getAttribute('block-id'))
+    const blockBeingReplacedId = parseInt(blockBeingReplaced.getAttribute('block-id'))
+    if (blockBeingReplacedId && blockBeingReplacedId ){
+      if(blockBeingDraggedId === blank1.id || blockBeingDraggedId === blank2.id ){
         return
       }
-      if(squareBeingReplacedId !== blank1.id && squareBeingReplacedId !== blank2.id){
-        console.log("Dropped on a non-blank block")
+      if(blockBeingReplacedId !== blank1.id && blockBeingReplacedId !== blank2.id){
         return
       }
+      let sBlock = findBlockItem(blocks, blockBeingDraggedId)
+      let dBlock = findBlockItem(blocks, blockBeingReplacedId)
+      console.log(sBlock)
+      console.log(dBlock)
+      const move = getMoveDirection(sBlock, dBlock)
+      if(move === MOVE_DIR.INVALID_MOVE)
+        return
+
     }
   }
 
