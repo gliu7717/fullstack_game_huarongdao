@@ -6,6 +6,28 @@ import guanyu from './images/guanyu.png'
 import huangzhong from './images/huangzhong.png'
 import machao from './images/machao.png'
 import soilder from './images/solider.png'
+export const blank1 = {
+  id :11,
+  name: "blank",
+  image:blank,
+  cname:"oneOne",
+  positionX : 1,
+  positionY: 4,
+  width : 1,
+  height :1,
+  color: "white"
+}
+export const blank2 = {
+  id :12,
+  name: "blank",
+  image:blank,
+  cname:"oneOne",
+  positionX : 2,
+  positionY: 4,
+  width : 1,
+  height :1,
+  color: "white"
+}
 
 export const createBoard = () =>{
     const zhangFei = {
@@ -134,28 +156,6 @@ export const createBoard = () =>{
       color: "yellow"
     }
 
-    const blank1 = {
-      id :11,
-      name: "blank",
-      image:blank,
-      cname:"oneOne",
-      positionX : 1,
-      positionY: 4,
-      width : 1,
-      height :1,
-      color: "white"
-    }
-    const blank2 = {
-      id :12,
-      name: "blank",
-      image:blank,
-      cname:"oneOne",
-      positionX : 2,
-      positionY: 4,
-      width : 1,
-      height :1,
-      color: "white"
-    }
 
     const boardArrangement = []
     boardArrangement.push(zhangFei)
