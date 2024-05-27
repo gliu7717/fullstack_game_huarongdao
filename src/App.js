@@ -6,6 +6,7 @@ import {createBoard,
 } from "./createBoard"
 import { MOVE_DIR } from './moveDir';
 import { getMoveDirection } from './getMoveDirection';
+import { getDownBlocks } from './getBlock';
 
 
 function App() {
@@ -20,6 +21,14 @@ function App() {
   useEffect(() => {
     setBlocks(createBoard())    
   }, [])
+
+  useEffect(()=>{
+    const timer = setInterval(() => {
+      setBlocks([...blocks])
+    }, 100)
+    return () => clearInterval(timer)
+  }, [ blocks ])
+
   const dragStart = (e) => {
     setblockBeingDragged(e.target)
   }
@@ -43,7 +52,22 @@ function App() {
       const move = getMoveDirection(sBlock, dBlock)
       if(move === MOVE_DIR.INVALID_MOVE)
         return
+      if(move === MOVE_DIR.MOVE_DOWN){
+        console.log(move)
+        if(sBlock.width === 1){
+          dBlock.positionY = sBlock.positionY
+          sBlock.positionY += 1
+        } else{
+          let [b1,b2] = getDownBlocks(blocks, sBlock)
+          console.log(b1, b2)
 
+          if(b1!==null && b2!== null){
+            console.log("valid move down")
+            b1.positionY = b2.positionY = sBlock.positionY
+            sBlock.positionY += 1   
+          }
+        }
+      }
     }
   }
 
