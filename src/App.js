@@ -12,11 +12,10 @@ import { getDownBlocks,
   getLeftBlocks
 } from './getBlock';
 
-
 function App() {
   const [blocks, setBlocks] = useState([])
-  const [blockBeingDragged, setblockBeingDragged] = useState(null)
-  const [blockBeingReplaced, setblockBeingReplaced] = useState(null)
+  let blockBeingDragged = null
+  let blockBeingReplaced= null
 
   function findBlockItem(arr, id) {
     return arr.filter((el) => el.id === id )[0];
@@ -25,19 +24,11 @@ function App() {
   useEffect(() => {
     setBlocks(createBoard())    
   }, [])
-
-  useEffect(()=>{
-    const timer = setInterval(() => {
-      setBlocks([...blocks])
-    }, 100)
-    return () => clearInterval(timer)
-  }, [ blocks ])
-
   const dragStart = (e) => {
-    setblockBeingDragged(e.target)
+    blockBeingDragged = e.target
   }
   const dragDrop = (e) => {
-    setblockBeingReplaced(e.target)
+    blockBeingReplaced =e.target
   }
   const dragEnd = (e) => {
     const blockBeingDraggedId = parseInt(blockBeingDragged.getAttribute('block-id'))
@@ -107,6 +98,7 @@ function App() {
           }
         }
       }
+      setBlocks([...blocks])
     }
   }
 
