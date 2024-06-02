@@ -10,4 +10,3 @@ export const getMoveDirection = (sBlock, dBlock) => {
       return MOVE_DIR.MOVE_DOWN
     return MOVE_DIR.INVALID_MOVE
   }
-  
